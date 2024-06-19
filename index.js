@@ -1,9 +1,17 @@
-import express from 'express';
-import {PÀINTINGS} from './data.js';
-import dotenv from 'dotenv';
+import express from 'express'
+import dotenv from 'dotenv'
+import { PAINTINGS } from './data.js'
 
-dotenv.config();
+dotenv.config()
 
-const SERVER_PORT = process.env.SERVER_PORT;
+const SERVER_PORT = process.env.SERVER_PORT || 3003
 
-const app = express();
+const app = express()
+//app.use(express.json())
+
+//app.use('/api', bookRoutes(), userRouter)
+//app.use(errorHandler)
+
+app.listen(SERVER_PORT, () => {
+  console.log(`Server running on port ${SERVER_PORT}`)
+})
