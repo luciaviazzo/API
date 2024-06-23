@@ -1,7 +1,7 @@
 //Guarda los metodos
 
 import { Router } from 'express' //Router que me bridna express
-import { paintingsController } from '../controllers/paintingsController.js'
+import { paintingController } from '../controllers/paintingController.js'
 import { schemaValidator } from '../middlewares/validations.js'
 import { bodyPintingSchema, updatePaintingSchema } from '../schemas/paintingsSchemas.js'
 
