@@ -3,13 +3,21 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const paintingController = () => {
-  const getBooks = async (_request, response, next) => {
+  const getPaintings = async (request, response, next) => {
+    const { query } = request
+
     try {
-      const books = await prisma.books.findMany()
+      const paintings = await prisma.paintings.findMany({
+        where: {
+          title: {
+            contains: query?.title ?? ''
+          }
+        }
+      })
 
       const responseFormat = {
-        data: books,
-        message: 'Books retrieved successfully'
+        data: paintings,
+        message: 'Paintings retrieved successfully'
       }
 
       return response.status(200).json(responseFormat)
@@ -20,17 +28,17 @@ export const paintingController = () => {
     }
   }
 
-  const createBook = async (request, response, next) => {
-    const newBook = request.body
+  const createPainting = async (request, response, next) => {
+    const newPainting = request.body
 
     try {
-      const createdBook = await prisma.books.create({
-        data: newBook
+      const createdPainting = await prisma.paintings.create({
+        data: newPainting
       })
 
       const responseFormat = {
-        data: createdBook,
-        message: 'Book created successfully'
+        data: createdPainting,
+        message: 'Painting created successfully'
       }
 
       return response.status(201).json(responseFormat)
@@ -41,20 +49,20 @@ export const paintingController = () => {
     }
   }
 
-  const getBookById = async (request, response, next) => {
+  const getPaintingById = async (request, response, next) => {
     const { id } = request.params
-    const bookId = Number(id)
+    const paintingId = Number(id)
 
     try {
-      const book = await prisma.books.findUnique({
+      const painting = await prisma.paintings.findUnique({
         where: {
-          id: bookId
+          id: paintingId
         }
       })
 
       const responseFormat = {
-        data: book,
-        message: 'Book retrieved successfully'
+        data: painting,
+        message: 'Painting retrieved successfully'
       }
 
       return response.status(200).json(responseFormat)
@@ -67,18 +75,18 @@ export const paintingController = () => {
 
   const deleteById = async (request, response, next) => {
     const { id } = request.params
-    const bookId = Number(id)
+    const paintingId = Number(id)
 
     try {
-      const book = await prisma.books.delete({
+      const painting = await prisma.paintings.delete({
         where: {
-          id: bookId
+          id: paintingId
         }
       })
 
       const responseFormat = {
-        data: book,
-        message: 'Book deleted successfully'
+        data: painting,
+        message: 'Painting deleted successfully'
       }
 
       return response.status(200).json(responseFormat)
@@ -91,20 +99,20 @@ export const paintingController = () => {
 
   const updateById = async (request, response, next) => {
     const { id } = request.params
-    const bookId = Number(id)
-    const newBookData = request.body
+    const paintingId = Number(id)
+    const newPaintingData = request.body
 
     try {
-      const book = await prisma.books.update({
+      const painting = await prisma.paintings.update({
         where: {
-          id: bookId
+          id: paintingId
         },
-        data: newBookData
+        data: newPaintingData
       })
 
       const responseFormat = {
-        data: book,
-        message: 'Book updated successfully'
+        data: painting,
+        message: 'Painting updated successfully'
       }
 
       return response.status(200).json(responseFormat)
@@ -116,9 +124,9 @@ export const paintingController = () => {
   }
 
   return {
-    getBooks,
-    createBook,
-    getBookById,
+    getPaintings,
+    createPainting,
+    getPaintingById,
     deleteById,
     updateById
   }
