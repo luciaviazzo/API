@@ -4,9 +4,9 @@ import { paintingController } from '../controllers/paintingController.js'
 import { schemaValidator } from '../middlewares/validations.js'
 import { bodyPintingSchema, updatePaintingSchema } from '../schemas/paintingsSchemas.js'
 
-export const paintingRoutes = (PAINTINGS) => {
+export const paintingRoutes = () => {
   const paintingRouter = Router()
-  const { getPaintings, createPainting, getPaintingById, deleteById, updateById } = paintingsController()
+  const { getPaintings, createPainting, getPaintingById, deleteById, updateById } = paintingController()
 
   //Agrupo los request de acuerdo a las rutas
   paintingRouter.route('/paintings')

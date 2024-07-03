@@ -14,12 +14,10 @@ export const paintingController = () => {
           }
         }
       })
-
       const responseFormat = {
         data: paintings,
         message: 'Paintings retrieved successfully'
       }
-
       return response.status(200).json(responseFormat)
     } catch (error) {
       next(error)
@@ -30,17 +28,14 @@ export const paintingController = () => {
 
   const createPainting = async (request, response, next) => {
     const newPainting = request.body
-
     try {
       const createdPainting = await prisma.paintings.create({
         data: newPainting
       })
-
       const responseFormat = {
         data: createdPainting,
         message: 'Painting created successfully'
       }
-
       return response.status(201).json(responseFormat)
     } catch (error) {
       next(error)
@@ -52,19 +47,16 @@ export const paintingController = () => {
   const getPaintingById = async (request, response, next) => {
     const { id } = request.params
     const paintingId = Number(id)
-
     try {
       const painting = await prisma.paintings.findUnique({
         where: {
           id: paintingId
         }
       })
-
       const responseFormat = {
         data: painting,
         message: 'Painting retrieved successfully'
       }
-
       return response.status(200).json(responseFormat)
     } catch (error) {
       next(error)
@@ -76,19 +68,16 @@ export const paintingController = () => {
   const deleteById = async (request, response, next) => {
     const { id } = request.params
     const paintingId = Number(id)
-
     try {
       const painting = await prisma.paintings.delete({
         where: {
           id: paintingId
         }
       })
-
       const responseFormat = {
         data: painting,
         message: 'Painting deleted successfully'
       }
-
       return response.status(200).json(responseFormat)
     } catch (error) {
       next(error)
@@ -101,7 +90,6 @@ export const paintingController = () => {
     const { id } = request.params
     const paintingId = Number(id)
     const newPaintingData = request.body
-
     try {
       const painting = await prisma.paintings.update({
         where: {
@@ -109,12 +97,10 @@ export const paintingController = () => {
         },
         data: newPaintingData
       })
-
       const responseFormat = {
         data: painting,
         message: 'Painting updated successfully'
       }
-
       return response.status(200).json(responseFormat)
     } catch (error) {
       next(error)
