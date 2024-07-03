@@ -1,17 +1,17 @@
-// import { bookSchema } from '../schemas/bookSchemas.js'
+// import { paintingSchema } from '../schemas/paintingSchemas.js'
 
 import { query } from "express";
 
-// export const validateBook = async (request, response, next) => {
-//   const { error } = bookSchema.validate(request.body, {abortEarly: false})
+// export const validatePainting = async (request, response, next) => {
+//   const { error } = paintingSchema.validate(request.body, {abortEarly: false})
 //   if (error) {
 //     return response.status(400).json({ message: error.message })
 //   }
 //   next()
 // }
 
-// export const validateIdBook = async (request, response, next) => {
-//   const { error } = bookSchema.validate(request.params, {abortEarly: false})
+// export const validateIdPainting = async (request, response, next) => {
+//   const { error } = paintingSchema.validate(request.params, {abortEarly: false})
 //   if (!id) {
 //     return response.status(400).json({ message: 'id is required' })
 //   }
