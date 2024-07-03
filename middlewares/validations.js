@@ -1,6 +1,6 @@
 // import { bookSchema } from '../schemas/bookSchemas.js'
 
-import { query } from "express"
+import { query } from "express";
 
 // export const validateBook = async (request, response, next) => {
 //   const { error } = bookSchema.validate(request.body, {abortEarly: false})
@@ -19,14 +19,17 @@ import { query } from "express"
 // }
 
 export const schemaValidator = (schema) => async (request, response, next) => {
-  const { error } = schema.validate({
-    body: request.body,
-    params: request.params,
-    query: request.query
-  }, {
-    abortEarly: false,
-    allowUnknown: true
-  })
-  
-  error ? next(error) : next()
-}
+  const { error } = schema.validate(
+    {
+      body: request.body,
+      params: request.params,
+      query: request.query,
+    },
+    {
+      abortEarly: false,
+      allowUnknown: true,
+    }
+  );
+
+  error ? next(error) : next();
+};
