@@ -10,3 +10,7 @@ userRouter.get("/profile/:id", profile);
 userRouter.post("/refresh-token", refreshToken);
 
 export default userRouter;
+
+
+
+//Elegir si usaremos este formato o el de paintingRouter
