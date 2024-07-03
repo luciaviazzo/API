@@ -1,9 +1,8 @@
-//importaciones
 import express from 'express'
 import dotenv from 'dotenv'
 import { PAINTINGS } from './data.js'
-//import { v4 as uuid } from 'uuid'
 import { paintingRoutes } from './routes/paintingRouter.js'
+import errorHandler from './middlewares/errorHandler.js'
 
 dotenv.config()
 
@@ -14,9 +13,8 @@ const app = express()
 app.use(express.json())
 
 app.use('/api', paintingRoutes(PAINTINGS))
-
+app.use(errorHandler)
 //app.use('/api', bookRoutes(), userRouter)
-//app.use(errorHandler)
 
 //escucha el puerto
 app.listen(SERVER_PORT, () => {
