@@ -1,3 +1,4 @@
+//importaciones y configuracion 
 import httpStatus from "../helpers/httpStatus.js";
 import { generateToken, verifyToken } from "../utils/tokenManagement.js";
 import { encrypt, verified } from "../utils/bcrypt.js";
@@ -5,6 +6,8 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+//exporta una función que define 
+//retorna las funciones del controlador para manejar las operaciones de usuarios.
 export const userController = () => {
   const register = async (request, response, next) => {
     const newUser = request.body;
