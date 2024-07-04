@@ -1,16 +1,16 @@
+//importaciones
 import { Router } from "express";
 import { userController } from "../controllers/userController.js";
 
-const userRouter = Router();
-const { register, login, profile, refreshToken } = userController();
+export const userRoutes = () => {
+    const userRouter = Router(); //nueva instancia de router
+    const { register, login, profile, refreshToken } = userController(); //desestructura las funciones
 
-userRouter.post("/register", register);
-userRouter.post("/login", login);
-userRouter.get("/profile/:id", profile);
-userRouter.post("/refresh-token", refreshToken);
+    //define las rutas y los métodos HTTP correspondientes
+    userRouter.post("/register", register); //ruta post para registrar un usuario
+    userRouter.post("/login", login); //ruta post para iniciar sesión
+    userRouter.get("/profile/:id", profile); //ruta get para obtener el perfil de un usuario por ID
+    userRouter.post("/refresh-token", refreshToken); //ruta post para refrescar el token
 
-export default userRouter;
-
-
-
-//Elegir si usaremos este formato o el de paintingRouter
+    return userRouter; //devuelve el router configurado
+};
