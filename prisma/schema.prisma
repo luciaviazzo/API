@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Paintings {
+model Painting {
   id          Int      @id @default(autoincrement())
   title       String   @db.VarChar(80)
   author      String   @db.VarChar(80)
