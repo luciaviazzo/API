@@ -1,4 +1,22 @@
-//importaciones
+import express from 'express';
+import { paintingController } from '../controllers/paintingController.js';
+import { schemaValidator } from '../middlewares/validations.js';
+import { bodyPaintingSchema, idPaintingSchema, updatePaintingSchema } from '../schemas/paintingSchemas.js';
+
+const router = express.Router();
+const { getPaintings, createPainting, getPaintingById, deleteById, updateById } = paintingController();
+
+router.get('/', getPaintings);
+router.post('/', schemaValidator({ body: bodyPaintingSchema }), createPainting);
+router.get('/:id', schemaValidator({ params: idPaintingSchema }), getPaintingById);
+router.delete('/:id', schemaValidator({ params: idPaintingSchema }), deleteById);
+router.put('/:id', schemaValidator({ body: updatePaintingSchema }), updateById);
+
+export default router;
+
+
+
+/*//importaciones
 import { Router } from "express";
 import { paintingController } from "../controllers/paintingController.js";
 import { schemaValidator } from "../middlewares/validations.js";
@@ -21,4 +39,4 @@ export const paintingRoutes = () => {
     .patch(schemaValidator(updatePaintingSchema), updateById); //ruta patch para actualizar una pintura por ID con validacion
 
   return paintingRouter; //devuelve el router configurado
-};
+};*/

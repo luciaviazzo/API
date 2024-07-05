@@ -1,35 +1,26 @@
-// import { paintingSchema } from '../schemas/paintingSchemas.js'
-
-import { query } from "express";
-
-// export const validatePainting = async (request, response, next) => {
-//   const { error } = paintingSchema.validate(request.body, {abortEarly: false})
-//   if (error) {
-//     return response.status(400).json({ message: error.message })
-//   }
-//   next()
-// }
-
-// export const validateIdPainting = async (request, response, next) => {
-//   const { error } = paintingSchema.validate(request.params, {abortEarly: false})
-//   if (!id) {
-//     return response.status(400).json({ message: 'id is required' })
-//   }
-//   next()
-// }
+import Joi from 'joi';
 
 export const schemaValidator = (schema) => async (request, response, next) => {
-  const { error } = schema.validate(
-    {
-      body: request.body,
-      params: request.params,
-      query: request.query,
-    },
-    {
+  try {
+    const { error } = await schema.validate({
+      ...request.body,
+      ...request.params,
+      ...request.query
+    }, {
       abortEarly: false,
-      allowUnknown: true,
-    }
-  );
+      allowUnknown: true
+    });
 
-  error ? next(error) : next();
+    if (error) {
+      return response.status(400).json({
+        success: false,
+        message: "Validation error",
+        details: error.details
+      });
+    }
+
+    next(); // Si la validación es exitosa, pasa al siguiente middleware
+  } catch (error) {
+    next(error); // Maneja cualquier error de validación
+  }
 };

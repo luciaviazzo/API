@@ -1,4 +1,95 @@
-//importaciones y configuracion
+import { PrismaClient } from '@prisma/client';
+import { handleRequest } from '../middlewares/requestHandler.js';
+
+const prisma = new PrismaClient();
+
+export const paintingController = () => {
+  const getPaintings = async (request) => {
+    const { query } = request;
+    const paintings = await prisma.paintings.findMany({
+      where: {
+        title: {
+          contains: query?.title ?? ''
+        }
+      }
+    });
+    return {
+      status: 200,
+      data: paintings,
+      message: 'Paintings retrieved successfully'
+    };
+  };
+
+  const createPainting = async (request) => {
+    const newPainting = request.body;
+    const createdPainting = await prisma.paintings.create({
+      data: newPainting
+    });
+    return {
+      status: 201,
+      data: createdPainting,
+      message: 'Painting created successfully'
+    };
+  };
+
+  const getPaintingById = async (request) => {
+    const { id } = request.params;
+    const paintingId = Number(id);
+    const painting = await prisma.paintings.findUnique({
+      where: {
+        id: paintingId
+      }
+    });
+    return {
+      status: 200,
+      data: painting,
+      message: 'Painting retrieved successfully'
+    };
+  };
+
+  const deleteById = async (request) => {
+    const { id } = request.params;
+    const paintingId = Number(id);
+    const painting = await prisma.paintings.delete({
+      where: {
+        id: paintingId
+      }
+    });
+    return {
+      status: 200,
+      data: painting,
+      message: 'Painting deleted successfully'
+    };
+  };
+
+  const updateById = async (request) => {
+    const { id } = request.params;
+    const paintingId = Number(id);
+    const newPaintingData = request.body;
+    const painting = await prisma.paintings.update({
+      where: {
+        id: paintingId
+      },
+      data: newPaintingData
+    });
+    return {
+      status: 200,
+      data: painting,
+      message: 'Painting updated successfully'
+    };
+  };
+
+  return {
+    getPaintings: handleRequest(getPaintings),
+    createPainting: handleRequest(createPainting),
+    getPaintingById: handleRequest(getPaintingById),
+    deleteById: handleRequest(deleteById),
+    updateById: handleRequest(updateById)
+  };
+};
+
+
+/*//importaciones y configuracion
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -120,4 +211,4 @@ export const paintingController = () => {
     deleteById,
     updateById
   }
-}
+}*/
