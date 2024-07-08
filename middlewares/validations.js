@@ -1,26 +1,19 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
+/**
+ * Middleware para validar los datos de la solicitud contra un esquema dado.
+ * @param {Joi.Schema} schema - Esquema Joi para validar la solicitud.
+ * @returns {Function} Middleware de validación.
+ */
 export const schemaValidator = (schema) => async (request, response, next) => {
-  try {
-    const { error } = await schema.validate({
-      ...request.body,
-      ...request.params,
-      ...request.query
-    }, {
-      abortEarly: false,
-      allowUnknown: true
-    });
-
-    if (error) {
-      return response.status(400).json({
-        success: false,
-        message: "Validation error",
-        details: error.details
-      });
-    }
-
-    next(); // Si la validación es exitosa, pasa al siguiente middleware
-  } catch (error) {
-    next(error); // Maneja cualquier error de validación
-  }
-};
+  const { error } = schema.validate({
+    body: request.body,
+    params: request.params,
+    query: request.query
+  }, {
+    abortEarly: false, // Para que se validen todos los campos y no se aborte al primer error
+    allowUnknown: true // Para permitir parámetros desconocidos en la solicitud
+  })
+  
+  error ? next(error) : next()
+}
