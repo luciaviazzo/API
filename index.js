@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { expressjwt as ejwt } from 'express-jwt'
 import { paintingRoutes } from './routes/paintingRouter.js'
+import userRouter from './routes/userRouter.js' // Importa el router de usuario
 import errorHandler from './middlewares/errorHandler.js'
 
 dotenv.config()
@@ -23,15 +24,18 @@ app.use(ejwt({
   algorithms: ['HS256'],
 }).unless({
   path: [
-    //'/api/login',         
-    //'/api/register',      
+    '/api/login',         
+    '/api/register',      
     '/api/refresh-token', 
     '/api/paintings',      
-    /^\/api\/paintings\/\d+$/ 
+    /^\/api\/paintings\/\d+$/,
+     /^\/api\/profile\/\d+$/
   ],
 }))
 
 app.use('/api', paintingRoutes())
+app.use('/api', userRouter) // Agrega el router de usuario
+
 app.use(errorHandler)
 
 app.listen(SERVER_PORT, () => {
