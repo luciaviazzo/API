@@ -14,24 +14,41 @@ datasource db {
 }
 
 model Painting {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(80)
-  author      String   @db.VarChar(80)
-  description String   @db.Text
-  year        Int
-  createdAt   DateTime @default(now()) @map("created at")
-  updatedAt   DateTime @updatedAt @map("updated at")
+  id                 Int                  @id @default(autoincrement())
+  title              String               @db.VarChar(80)
+  author             String               @db.VarChar(80)
+  description        String               @db.Text
+  year               Int
+  createdAt          DateTime             @default(now()) @map("created at")
+  updatedAt          DateTime             @updatedAt @map("updated at")
+  UserSavedPaintings UserSavedPaintings[]
 
   @@map("paintings")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  password  String
-  createdAt DateTime @default(now()) @map("created at")
-  updatedAt DateTime @updatedAt @map("updated at")
+  id                 Int                  @id @default(autoincrement())
+  email              String               @unique
+  name               String
+  password           String
+  createdAt          DateTime             @default(now()) @map("created at")
+  updatedAt          DateTime             @updatedAt @map("updated at")
+  UserSavedPaintings UserSavedPaintings[]
 
   @@map("users")
 }
+
+model UserSavedPaintings {
+  painting   Painting @relation(fields: [paintingId], references: [id])
+  paintingId Int      @map("book_id")
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int      @map("user_id")
+  createdAt  DateTime @default(now()) @map("created at")
+  updatedAt  DateTime @updatedAt @map("updated at")
+
+  @@id([paintingId, userId])
+  @@map("users_saved_paintings")
+}
+
+// @@ altera la tabla 
+//  @ altera un campo

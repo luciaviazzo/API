@@ -5,6 +5,8 @@ import Joi from 'joi'
  * @param {Joi.Schema} schema - Esquema Joi para validar la solicitud.
  * @returns {Function} Middleware de validación.
  */
+
+//valida que sea un objeto
 export const schemaValidator = (schema) => async (request, response, next) => {
   const { error } = schema.validate({
     body: request.body,
