@@ -31,7 +31,9 @@ app.use(ejwt({
     '/api/paintings',
     /^\/api\/paintings\/\d+$/,
     /^\/api\/profile\/\d+$/,
-    '/api/painting-saved'
+    '/api/painting-saved',
+    /^\/api\/painting-saved\/\d+$/,
+    '/api/painting-saved/:id'
   ],
 }))
 
