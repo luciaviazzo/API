@@ -30,7 +30,8 @@ app.use(ejwt({
     '/api/refresh-token',
     '/api/paintings',
     /^\/api\/paintings\/\d+$/,
-    /^\/api\/profile\/\d+$/
+    /^\/api\/profile\/\d+$/,
+    '/api/painting-saved'
   ],
 }))
 

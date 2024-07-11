@@ -9,7 +9,7 @@ export const paintingSavedController = () => {
     const savePainting = async (request, response, next) => {
 
         const { body } = request
-        const paintingId = Number(body?.bookId ?? null)
+        const paintingId = Number(body?.paintingId ?? null)
         const userId = Number(body?.userId ?? null)
 
         try {
