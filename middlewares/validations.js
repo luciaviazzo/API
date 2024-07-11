@@ -16,6 +16,6 @@ export const schemaValidator = (schema) => async (request, response, next) => {
     abortEarly: false, // Para que se validen todos los campos y no se aborte al primer error
     allowUnknown: true // Para permitir parámetros desconocidos en la solicitud
   })
-  
+
   error ? next(error) : next()
 }

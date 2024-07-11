@@ -1,9 +1,8 @@
 import httpStatus from '../helpers/httpStatus.js'
-
 import { generateToken, verifyToken } from '../utils/tokenManagement.js'
 import { encrypt, verified } from '../utils/bcrypt.js'
-
 import { PrismaClient } from '@prisma/client'
+
 const prisma = new PrismaClient()
 
 export const userController = () => {
@@ -54,9 +53,9 @@ export const userController = () => {
         })
       }
 
-      const token = generateToken({data:{ email, role: user.role }})
+      const token = generateToken({ data: { email, role: user.role } })
       const refreshToken = generateToken({
-        data:{ email, role: user.role },
+        data: { email, role: user.role },
         isRefresh: true,
         expiresIn: '7d'
       })
@@ -80,7 +79,7 @@ export const userController = () => {
     try {
       const { role, email } = verifyToken(refreshToken, true)
       const token = generateToken({
-        data:{ email, role, message: 'fressssco' }
+        data: { email, role, message: 'fressssco' }
       })
 
       return response.status(httpStatus.OK).json({
