@@ -35,7 +35,7 @@ app.use(ejwt({
 
 app.use('/api', paintingRoutes())
 app.use('/api', userRoutes())
-app.use('/api', paintingSavedRouter())
+app.use('/api', paintingSavedRoutes())
 
 app.use(errorHandler)
 
