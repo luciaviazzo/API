@@ -4,6 +4,8 @@ import HTTP_STATUS from '../helpers/httpStatus.js'
 const prisma = new PrismaClient()
 
 export const paintingController = () => {
+  
+  
   const getPaintings = async (request, response, next) => {
     const { query } = request
 
@@ -22,12 +24,15 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
+    
     } catch (error) {
       next(error)
+
     } finally {
       await prisma.$disconnect()
     }
   }
+
 
   const createPainting = async (request, response, next) => {
     const newPainting = request.body
@@ -43,12 +48,15 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.CREATED).json(responseFormat)
+    
     } catch (error) {
       next(error)
+    
     } finally {
       await prisma.$disconnect()
     }
   }
+
 
   const getPaintingById = async (request, response, next) => {
     const { id } = request.params
@@ -71,12 +79,15 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
+    
     } catch (error) {
       next(error)
+    
     } finally {
       await prisma.$disconnect()
     }
   }
+
 
   const deleteById = async (request, response, next) => {
     const { id } = request.params
@@ -95,12 +106,15 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
+    
     } catch (error) {
       next(error)
+    
     } finally {
       await prisma.$disconnect()
     }
   }
+
 
   const updateById = async (request, response, next) => {
     const { id } = request.params
@@ -121,13 +135,16 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
+   
     } catch (error) {
       next(error)
+   
     } finally {
       await prisma.$disconnect()
     }
   }
 
+  
   return {
     getPaintings,
     createPainting,

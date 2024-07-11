@@ -6,6 +6,8 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const userController = () => {
+  
+
   const register = async (request, response, next) => {
     const newUser = request.body
     const hashedPassword = await encrypt(newUser.password)
@@ -22,12 +24,15 @@ export const userController = () => {
       }
 
       return response.status(httpStatus.CREATED).json(responseFormat)
+    
     } catch (error) {
       next(error)
+    
     } finally {
       await prisma.$disconnect()
     }
   }
+
 
   const login = async (request, response, next) => {
     const { email, password } = request.body
@@ -73,6 +78,7 @@ export const userController = () => {
     }
   }
 
+
   const refreshToken = async (request, response, next) => {
     const { refreshToken } = request.body
 
@@ -86,10 +92,12 @@ export const userController = () => {
         success: true,
         token
       })
+    
     } catch (error) {
       next(error)
     }
   }
+
 
   const profile = async (request, response, next) => {
     const { id } = request.params
@@ -105,13 +113,16 @@ export const userController = () => {
       return response.status(httpStatus.OK).json({
         data: user
       })
+   
     } catch (error) {
       next(error)
+    
     } finally {
       await prisma.$disconnect()
     }
   }
 
+  
   return {
     register,
     login,

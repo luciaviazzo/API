@@ -3,10 +3,11 @@ import { paintingSavedController } from '../controllers/paintingSavedController.
 
 
 export const paintingSavedRoutes = () => {
+    
     const paintingSavedRouter = Router()
-    const { paintingSaved } = paintingSavedController()
+    const { savePainting } = paintingSavedController()
 
-    paintingSavedRouter.post('/painting-saved', paintingSaved)
+    paintingSavedRouter.post('/painting-saved', savePainting)
 
     return paintingSavedRouter
 }

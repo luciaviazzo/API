@@ -3,7 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { expressjwt as ejwt } from 'express-jwt'
 import { paintingRoutes } from './routes/paintingRouter.js'
-import { userRoutes } from './routes/userRouter.js' // Importa el router de usuario
+import { userRoutes } from './routes/userRouter.js' 
+import { paintingSavedRoutes } from './routes/paintingSavedRouter.js'
 import errorHandler from './middlewares/errorHandler.js'
 
 dotenv.config()
