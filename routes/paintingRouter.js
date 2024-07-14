@@ -5,7 +5,7 @@ import { bodyPaintingSchema, updatePaintingSchema } from '../schemas/paintingSch
 
 export const paintingRoutes = () => {
   const paintingRouter = Router()
-  const { getPaintings, createPainting, getPaintingById, deleteById, updateById } = paintingController()
+  const { getPaintings, createPainting, getPaintingById, deleteById, updateById, getPaintingsByAuthor } = paintingController()
 
   paintingRouter.route('/paintings')
     .get(getPaintings)
@@ -15,6 +15,9 @@ export const paintingRoutes = () => {
     .get(getPaintingById)
     .delete(deleteById)
     .patch(schemaValidator(updatePaintingSchema), updateById)
+
+  paintingRouter.route('/paintings/author/:author')
+    .get(getPaintingsByAuthor)
 
   return paintingRouter
 }

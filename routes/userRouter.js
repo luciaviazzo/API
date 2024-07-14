@@ -3,11 +3,11 @@ import { userController } from '../controllers/userController.js'
 
 export const userRoutes = () => {
     const userRouter = Router()
-    const { register, login, profile, refreshToken } = userController()
+    const { register, login, getUserById , refreshToken } = userController()
 
     userRouter.post('/register', register)
     userRouter.post('/login', login)
-    userRouter.get('/profile/:id', profile)
+    userRouter.get('/profile/:id', getUserById)
     userRouter.post('/refresh-token', refreshToken)
 
     return userRouter

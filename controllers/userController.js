@@ -99,7 +99,7 @@ export const userController = () => {
   }
 
 
-  const profile = async (request, response, next) => {
+  const getUserById = async (request, response, next) => {
     const { id } = request.params
     const userId = Number(id)
 
@@ -126,7 +126,7 @@ export const userController = () => {
   return {
     register,
     login,
-    profile,
+    getUserById,
     refreshToken
   }
 }

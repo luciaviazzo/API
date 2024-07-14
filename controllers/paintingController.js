@@ -4,8 +4,8 @@ import HTTP_STATUS from '../helpers/httpStatus.js'
 const prisma = new PrismaClient()
 
 export const paintingController = () => {
-  
-  
+
+
   const getPaintings = async (request, response, next) => {
     const { query } = request
 
@@ -24,7 +24,7 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
-    
+
     } catch (error) {
       next(error)
 
@@ -48,10 +48,10 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.CREATED).json(responseFormat)
-    
+
     } catch (error) {
       next(error)
-    
+
     } finally {
       await prisma.$disconnect()
     }
@@ -79,10 +79,10 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
-    
+
     } catch (error) {
       next(error)
-    
+
     } finally {
       await prisma.$disconnect()
     }
@@ -106,10 +106,10 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
-    
+
     } catch (error) {
       next(error)
-    
+
     } finally {
       await prisma.$disconnect()
     }
@@ -135,10 +135,43 @@ export const paintingController = () => {
       }
 
       return response.status(HTTP_STATUS.OK).json(responseFormat)
-   
+
     } catch (error) {
       next(error)
-   
+
+    } finally {
+      await prisma.$disconnect()
+    }
+  }
+
+
+  const getPaintingsByAuthor = async (request, response, next) => {
+    const { author } = request.params
+
+    try {
+      const paintings = await prisma.painting.findMany({
+        where: {
+          artist: {
+            contains: author,
+            mode: 'insensitive'
+          }
+        }
+      })
+
+      if (paintings.length === 0) {
+        return response.status(HTTP_STATUS.NOT_FOUND).json({ message: 'No paintings found for this author' })
+      }
+
+      const responseFormat = {
+        data: paintings,
+        message: 'Paintings by author retrieved successfully'
+      }
+
+      return response.status(HTTP_STATUS.OK).json(responseFormat)
+
+    } catch (error) {
+      next(error)
+
     } finally {
       await prisma.$disconnect()
     }
@@ -150,6 +183,7 @@ export const paintingController = () => {
     createPainting,
     getPaintingById,
     deleteById,
-    updateById
+    updateById,
+    getPaintingsByAuthor
   }
 }

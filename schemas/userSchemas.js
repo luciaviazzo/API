@@ -1,21 +1,24 @@
-// userSchemas.js
-import Joi from 'joi';
+import Joi from 'joi'
 
-export const createUserSchema = Joi.object({
+export const registerSchema = Joi.object({
   body: Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
     name: Joi.string().required(),
-  }),
-});
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required()
+  })
+})
 
 export const loginSchema = Joi.object({
   body: Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  }),
-});
+    password: Joi.string().required()
+  })
+})
 
-export const idUserSchema = Joi.object({
-  id: Joi.number().required(),
-});
+export const updateProfileSchema = Joi.object({
+  body: Joi.object({
+    name: Joi.string().optional(),
+    email: Joi.string().email().optional(),
+    password: Joi.string().min(6).optional()
+  })
+})

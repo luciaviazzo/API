@@ -4,8 +4,8 @@ export const bodyPaintingSchema = Joi.object({
   body: Joi.object({
     title: Joi.string().max(80).required(),
     author: Joi.string().required(),
-    description: Joi.string().required(),
-    year: Joi.number().optional().prefs({ convert: false }), //no convierete en string
+    description: Joi.string().optional(),
+    year: Joi.number().required().prefs({ convert: false }), //no convierete en string
   })
 })
 

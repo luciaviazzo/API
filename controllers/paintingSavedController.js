@@ -29,7 +29,7 @@ export const paintingSavedController = () => {
         }
     }
 
-
+    //Devuelve todas las pinturas guardadas por un usuario
     const getAllSavedPaintingsById = async (request, response, next) => {
 
         const { params } = request
