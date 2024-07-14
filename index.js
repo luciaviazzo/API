@@ -28,12 +28,7 @@ app.use(ejwt({
     '/api/login',
     '/api/register',
     '/api/refresh-token',
-    '/api/paintings',
-    /^\/api\/paintings\/\d+$/,
-    /^\/api\/profile\/\d+$/,
-    '/api/painting-saved',
-    /^\/api\/painting-saved\/\d+$/,
-    '/api/painting-saved/:id'
+    '/api/paintings'
   ],
 }))
 
