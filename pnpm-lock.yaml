@@ -24,7 +24,7 @@ importers:
         specifier: 4.19.2
         version: 4.19.2
       express-jwt:
-        specifier: ^8.4.1
+        specifier: 8.4.1
         version: 8.4.1
       express-validator:
         specifier: 7.1.0

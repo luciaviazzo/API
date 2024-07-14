@@ -2,6 +2,7 @@ import httpStatus from '../helpers/httpStatus.js'
 import { generateToken, verifyToken } from '../utils/tokenManagement.js'
 import { encrypt, verified } from '../utils/bcrypt.js'
 import { PrismaClient } from '@prisma/client'
+import jwt from 'jsonwebtoken'
 
 const prisma = new PrismaClient()
 
@@ -64,7 +65,6 @@ export const userController = () => {
         isRefresh: true,
         expiresIn: '7d'
       })
-
 
       return response.status(httpStatus.OK).json({
         message: 'Login successful',
