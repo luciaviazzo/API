@@ -31,6 +31,7 @@ model User {
   email              String               @unique
   name               String
   password           String
+  role               Role                 @default(USER)
   createdAt          DateTime             @default(now()) @map("created at")
   updatedAt          DateTime             @updatedAt @map("updated at")
   UserSavedPaintings UserSavedPaintings[]
@@ -48,6 +49,11 @@ model UserSavedPaintings {
 
   @@id([paintingId, userId])
   @@map("users_saved_paintings")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 // @@ altera la tabla 
