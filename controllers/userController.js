@@ -60,6 +60,7 @@ export const userController = () => {
       }
 
       const token = generateToken({ data: { email, role: user.role } })
+      
       const refreshToken = generateToken({
         data: { email, role: user.role },
         isRefresh: true,

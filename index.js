@@ -19,6 +19,16 @@ app.use(cors({
   methods: 'GET, POST, PUT, DELETE',
 }))
 
+app.post('/api/upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err)
+      return res.status(400).send('Upload failed')
+    }
+    res.status(200).json({ message: req.file })
+  })
+})
+
 // Configuración del middleware ejwt para autenticación JWT
 app.use(ejwt({
   secret: process.env.SECRET_KEY,
@@ -32,9 +42,7 @@ app.use(ejwt({
   ],
 }))
 
-app.use('/api', paintingRoutes())
-app.use('/api', userRoutes())
-app.use('/api', paintingSavedRoutes())
+app.use('/api', paintingRoutes(), userRoutes(), paintingSavedRoutes())
 
 app.use(errorHandler)
 
