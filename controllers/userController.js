@@ -2,12 +2,11 @@ import httpStatus from '../helpers/httpStatus.js'
 import { generateToken, verifyToken } from '../utils/tokenManagement.js'
 import { encrypt, verified } from '../utils/bcrypt.js'
 import { PrismaClient } from '@prisma/client'
-import jwt from 'jsonwebtoken'
 
 const prisma = new PrismaClient()
 
 export const userController = () => {
-  
+
 
   const register = async (request, response, next) => {
     const newUser = request.body
@@ -25,10 +24,10 @@ export const userController = () => {
       }
 
       return response.status(httpStatus.CREATED).json(responseFormat)
-    
+
     } catch (error) {
       next(error)
-    
+
     } finally {
       await prisma.$disconnect()
     }
@@ -59,10 +58,14 @@ export const userController = () => {
         })
       }
 
-      const token = generateToken({ data: { email, role: user.role } })
-      
+      const token = generateToken({
+        data:
+          { email, role: user.role }
+      })
+
       const refreshToken = generateToken({
-        data: { email, role: user.role },
+        data:
+          { email, role: user.role },
         isRefresh: true,
         expiresIn: '7d'
       })
@@ -72,8 +75,10 @@ export const userController = () => {
         token,
         refreshToken
       })
+
     } catch (error) {
       next(error)
+
     } finally {
       await prisma.$disconnect()
     }
@@ -86,14 +91,14 @@ export const userController = () => {
     try {
       const { role, email } = verifyToken(refreshToken, true)
       const token = generateToken({
-        data: { email, role, message: 'fressssco' }
+        data: { email, role, message: 'new token' }
       })
 
       return response.status(httpStatus.OK).json({
         success: true,
         token
       })
-    
+
     } catch (error) {
       next(error)
     }
@@ -114,16 +119,16 @@ export const userController = () => {
       return response.status(httpStatus.OK).json({
         data: user
       })
-   
+
     } catch (error) {
       next(error)
-    
+
     } finally {
       await prisma.$disconnect()
     }
   }
 
-  
+
   return {
     register,
     login,
