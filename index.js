@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { expressjwt as ejwt } from 'express-jwt'
 import { paintingRoutes } from './routes/paintingRouter.js'
-import { userRoutes } from './routes/userRouter.js' 
+import { userRoutes } from './routes/userRouter.js'
 import { paintingSavedRoutes } from './routes/paintingSavedRouter.js'
 import errorHandler from './middlewares/errorHandler.js'
 
@@ -11,7 +11,7 @@ dotenv.config()
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001
 
-// Creacion de apicacion Express
+// Configuracion de Express
 const app = express()
 app.use(express.json())
 app.use(cors({
@@ -19,6 +19,7 @@ app.use(cors({
   methods: 'GET, POST, PUT, DELETE',
 }))
 
+// Ruta de POST
 app.post('/api/upload', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
@@ -29,7 +30,7 @@ app.post('/api/upload', (req, res) => {
   })
 })
 
-// Configuración del middleware ejwt para autenticación JWT
+// Autenticacion de JWT
 app.use(ejwt({
   secret: process.env.SECRET_KEY,
   algorithms: ['HS256'],

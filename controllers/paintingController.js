@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 export const paintingController = () => {
 
-
+  // Devuelve todas las pinturas, opcionalmente filtrando por título
   const getPaintings = async (request, response, next) => {
     const { query } = request
 
@@ -33,7 +33,7 @@ export const paintingController = () => {
     }
   }
 
-
+  // Crea una nueva pintura
   const createPainting = async (request, response, next) => {
     const newPainting = request.body
 
@@ -57,7 +57,7 @@ export const paintingController = () => {
     }
   }
 
-
+  // Devuelve una pintura a partir de su ID
   const getPaintingById = async (request, response, next) => {
     const { id } = request.params
     const paintingId = Number(id)
@@ -88,7 +88,7 @@ export const paintingController = () => {
     }
   }
 
-
+  // Elimina una pintura a partir de su ID
   const deleteById = async (request, response, next) => {
     const { id } = request.params
     const paintingId = Number(id)
@@ -115,7 +115,7 @@ export const paintingController = () => {
     }
   }
 
-
+  // Actualiza los datos de una pintura a partir de su ID
   const updateById = async (request, response, next) => {
     const { id } = request.params
     const paintingId = Number(id)
@@ -144,7 +144,7 @@ export const paintingController = () => {
     }
   }
 
-
+  // Devuelve todas las pìnturas de un autor especifico 
   const getPaintingsByAuthor = async (request, response, next) => {
     const { author } = request.params
 
@@ -177,7 +177,7 @@ export const paintingController = () => {
     }
   }
 
-  
+
   return {
     getPaintings,
     createPainting,

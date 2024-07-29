@@ -1,11 +1,11 @@
-import httpStatus from '../helpers/httpStatus.js'
+import HTTP_STATUS from '../helpers/httpStatus.js'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
 export const paintingSavedController = () => {
 
-
+    // Guarda una pintura asociada a un usuario
     const savePainting = async (request, response, next) => {
 
         const { body } = request
@@ -19,7 +19,7 @@ export const paintingSavedController = () => {
                     userId
                 }
             })
-            return response.status(httpStatus.CREATED).json(savedPainting)
+            return response.status(HTTP_STATUS.CREATED).json(savedPainting)
 
         } catch (error) {
             next(error)
@@ -29,7 +29,7 @@ export const paintingSavedController = () => {
         }
     }
 
-    //Devuelve todas las pinturas guardadas por un usuario
+    // Devuelve todas las pinturas guardadas por un usuario
     const getAllSavedPaintingsById = async (request, response, next) => {
 
         const { params } = request
@@ -57,7 +57,7 @@ export const paintingSavedController = () => {
                     }
                 },
             })
-            return response.status(httpStatus.CREATED).json(savedPaintings)
+            return response.status(HTTP_STATUS.CREATED).json(savedPaintings)
 
         } catch (error) {
             next(error)
